@@ -7,7 +7,7 @@
     <title>How Many Heartbleeds? - Unit conversion tool</title>
 
     <!-- Bootstrap -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -16,46 +16,88 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body style="background: url(images/heartbleed.png) no-repeat 15% 20px;">
     <div class="container">
-      <form id="heartbleed-converter">
-        <div class="row">
-          <div class="col-sm-4 col-sm-offset-1">
+      <div class="row" style="margin-top: 100px;">
+        <div class="col-sm-6 col-sm-offset-3">
+          <form id="heartbleed-converter">
             <div class="form-group">
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Units...">
+              <input type="text" pattern="\d*" class="form-control input-lg" id="origin" placeholder="Enter Units...">
             </div>
-            <div class="form-group">
+
+            <div class="form-group pull-right">
               <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary">
-                  <input type="radio" name="units" id="kb">KB
+                <label class="btn btn-primary active">
+                  <input type="radio" name="units" value="kb" checked="checked">KB
                 </label>
                 <label class="btn btn-primary">
-                  <input type="radio" name="units" id="mb">MB
+                  <input type="radio" name="units" value="mb">MB
                 </label>
                 <label class="btn btn-primary">
-                  <input type="radio" name="units" id="gb">GB
+                  <input type="radio" name="units" value="gb">GB
                 </label>
                 <label class="btn btn-primary">
-                  <input type="radio" name="units" id="tb">TB
+                  <input type="radio" name="units" value="tb">TB
                 </label>
               </div>
             </div>
-          </div>
 
-          <div class="col-sm-2">
-            =
-          </div>
+            <div class="clearfix"></div>
 
-          <div class="col-sm-4">
+            <p class="lead" style="display: block; padding: 8px 17px 12px; background-color: #ccc; border-radius: 50px; width: 48px; color: #fff; margin-left: auto; margin-right: auto; font-size: 21px;">=</p>
+
             <div class="form-group">
-              <input type="email" class="form-control" id="heartbleeds" placeholder="Get Heartbleeds.">
+              <input type="text" pattern="\d*" class="form-control input-lg" id="heartbleeds">
             </div>
-          </div>
+
+            <p class="lead text-right">Heartbleeds</p>
         </div>
       </form>
     </div>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        window.forwards = true;
+
+        $("#heartbleed-converter").on('keyup change', 'input', function() {
+          var units = $("#heartbleed-converter")[0].units.value;
+
+          if($(this).attr('id') == 'origin') {
+            window.forwards = true;
+          } else if($(this).attr('id') == 'heartbleeds') {
+            window.forwards = false;
+          }
+
+          switch(units) {
+            case 'kb':
+              var multiplier = 1;
+              break;
+
+            case 'mb':
+              var multiplier = 1024;
+              break;
+
+            case 'gb':
+              var multiplier = 1049000;
+              break;
+
+            case 'tb':
+              var multiplier = 1074000000;
+              break;
+
+            default:
+              var multiplier = 1;
+          }
+
+          if(forwards) {
+            $('#heartbleeds').val(($('#origin').val() * multiplier) / 64);
+          } else {
+            $('#origin').val(($('#heartbleeds').val() * 64) / multiplier );
+          }
+        });
+      });
+    </script>
   </body>
 </html>
