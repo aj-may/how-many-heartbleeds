@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Quintet</title>
+    <title>How Many Heartbleeds? - Unit conversion tool</title>
 
     <!-- Bootstrap -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
@@ -21,13 +21,35 @@
       <form id="heartbleed-converter">
         <div class="row">
           <div class="col-sm-4 col-sm-offset-1">
-            
+            <div class="form-group">
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Units...">
+            </div>
+            <div class="form-group">
+              <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary">
+                  <input type="radio" name="units" id="kb">KB
+                </label>
+                <label class="btn btn-primary">
+                  <input type="radio" name="units" id="mb">MB
+                </label>
+                <label class="btn btn-primary">
+                  <input type="radio" name="units" id="gb">GB
+                </label>
+                <label class="btn btn-primary">
+                  <input type="radio" name="units" id="tb">TB
+                </label>
+              </div>
+            </div>
           </div>
+
           <div class="col-sm-2">
-            
+            =
           </div>
+
           <div class="col-sm-4">
-            
+            <div class="form-group">
+              <input type="email" class="form-control" id="heartbleeds" placeholder="Get Heartbleeds.">
+            </div>
           </div>
         </div>
       </form>
